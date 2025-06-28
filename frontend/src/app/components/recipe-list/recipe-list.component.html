@@ -1,0 +1,44 @@
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-6">Recipes</h2>
+  <div class="mb-4">
+    <label for="allergenFilter" class="block text-sm font-medium text-gray-700">Filter by Allergen</label>
+    <select id="allergenFilter" [(ngModel)]="allergenFilter" (change)="filterRecipes()" class="mt-1 block w-full max-w-xs p-2 border rounded-md">
+      <option value="">All</option>
+      <option value="peanuts">Peanuts</option>
+      <option value="dairy">Dairy</option>
+      <option value="gluten">Gluten</option>
+      <option value="soy">Soy</option>
+      <option value="nuts">Nuts</option>
+    </select>
+  </div>
+  <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded mb-4">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="recipes.length === 0 && !loading && !errorMessage" class="bg-yellow-100 text-yellow-700 p-4 rounded mb-4">
+    No recipes found.
+  </div>
+  <div *ngIf="loading" class="text-center">Loading recipes...</div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <ng-container *ngFor="let recipe of recipes">
+      <div *ngIf="recipe.id" class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-bold mb-2">{{ recipe.title }}</h3>
+        <p class="text-gray-600 mb-2"><strong>Ingredients:</strong> {{ recipe.ingredients.join(', ') }}</p>
+        <p class="text-gray-600 mb-2"><strong>Instructions:</strong> {{ recipe.instructions | slice:0:100 }}{{ recipe.instructions.length > 100 ? '...' : '' }}</p>
+        <div class="text-gray-600 mb-2">
+          <strong>Nutritional Info:</strong>
+          <ul class="list-disc list-inside">
+            <li>Calories: {{ recipe.nutritionalInfo.calories }} kcal</li>
+            <li>Protein: {{ recipe.nutritionalInfo.protein }} g</li>
+            <li>Carbs: {{ recipe.nutritionalInfo.carbs }} g</li>
+            <li>Fat: {{ recipe.nutritionalInfo.fat }} g</li>
+          </ul>
+        </div>
+        <p class="text-gray-600 mb-4"><strong>Allergens:</strong> {{ recipe.allergens.length ? recipe.allergens.join(', ') : 'None' }}</p>
+        <div *ngIf="recipe.createdBy === userEmail" class="flex space-x-2">
+          <a [routerLink]="['/recipe/edit', recipe.id]" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Edit</a>
+          <button (click)="deleteRecipe(recipe.id)" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Delete</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

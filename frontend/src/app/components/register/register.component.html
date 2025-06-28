@@ -1,0 +1,31 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+    <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded mb-4">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="bg-green-100 text-green-700 p-4 rounded mb-4">
+      {{ successMessage }}
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input id="email" type="email" formControlName="email" class="mt-1 block w-full p-2 border rounded-md" required>
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-600 text-sm">
+          Please enter a valid email.
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input id="password" type="password" formControlName="password" class="mt-1 block w-full p-2 border rounded-md" required>
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-600 text-sm">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+      <button type="submit" [disabled]="registerForm.invalid || loading" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 disabled:bg-blue-400">
+        {{ loading ? 'Registering...' : 'Register' }}
+      </button>
+    </form>
+    <p class="mt-4 text-center">Already have an account? <a routerLink="/login" class="text-blue-600 hover:underline">Login</a></p>
+  </div>
+</div>

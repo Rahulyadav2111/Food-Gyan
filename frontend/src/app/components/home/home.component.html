@@ -1,0 +1,26 @@
+<div class="text-center py-16 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+  <h1 class="text-4xl font-bold mb-4">Welcome to Recipe App</h1>
+  <p class="text-lg mb-6">Discover, create, and share delicious recipes with the world!</p>
+  <div class="space-x-4">
+    <a routerLink="/recipes" *ngIf="isLoggedIn" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100">View Recipes</a>
+    <a routerLink="/login" *ngIf="!isLoggedIn" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100">Login</a>
+    <a routerLink="/register" *ngIf="!isLoggedIn" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600">Register</a>
+  </div>
+</div>
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-semibold mb-4">Why Use Recipe App?</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">Discover Recipes</h3>
+      <p>Explore a wide variety of recipes tailored to your dietary needs.</p>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">Create & Share</h3>
+      <p>Add your own recipes and share them with the community.</p>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-2">Stay Informed</h3>
+      <p>Check nutritional info and allergens to make safe choices.</p>
+    </div>
+  </div>
+</div>

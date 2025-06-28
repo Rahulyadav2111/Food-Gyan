@@ -1,0 +1,80 @@
+<div class="container mx-auto py-8">
+  <h2 class="text-2xl font-bold mb-6">{{ isEditMode ? 'Edit Recipe' : 'Add Recipe' }}</h2>
+  <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded mb-4">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="bg-green-100 text-green-700 p-4 rounded mb-4">
+    {{ successMessage }}
+  </div>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-4">
+      <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+      <input id="title" formControlName="title" class="mt-1 block w-full p-2 border rounded-md" required>
+      <div *ngIf="recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched" class="text-red-600 text-sm">
+        Title is required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="ingredients" class="block text-sm font-medium text-gray-700">Ingredients (comma-separated)</label>
+      <textarea id="ingredients" formControlName="ingredients" class="mt-1 block w-full p-2 border rounded-md" rows="4" required></textarea>
+      <div *ngIf="recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched" class="text-red-600 text-sm">
+        Ingredients are required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="instructions" class="block text-sm font-medium text-gray-700">Instructions</label>
+      <textarea id="instructions" formControlName="instructions" class="mt-1 block w-full p-2 border rounded-md" rows="6" required></textarea>
+      <div *ngIf="recipeForm.get('instructions')?.invalid && recipeForm.get('instructions')?.touched" class="text-red-600 text-sm">
+        Instructions are required.
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Nutritional Information</label>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label for="calories" class="block text-sm font-medium text-gray-700">Calories (kcal)</label>
+          <input id="calories" type="number" formControlName="calories" class="mt-1 block w-full p-2 border rounded-md" required>
+          <div *ngIf="recipeForm.get('calories')?.invalid && recipeForm.get('calories')?.touched" class="text-red-600 text-sm">
+            Calories must be a number.
+          </div>
+        </div>
+        <div>
+          <label for="protein" class="block text-sm font-medium text-gray-700">Protein (g)</label>
+          <input id="protein" type="number" formControlName="protein" class="mt-1 block w-full p-2 border rounded-md" required>
+          <div *ngIf="recipeForm.get('protein')?.invalid && recipeForm.get('protein')?.touched" class="text-red-600 text-sm">
+            Protein must be a number.
+          </div>
+        </div>
+        <div>
+          <label for="carbs" class="block text-sm font-medium text-gray-700">Carbs (g)</label>
+          <input id="carbs" type="number" formControlName="carbs" class="mt-1 block w-full p-2 border rounded-md" required>
+          <div *ngIf="recipeForm.get('carbs')?.invalid && recipeForm.get('carbs')?.touched" class="text-red-600 text-sm">
+            Carbs must be a number.
+          </div>
+        </div>
+        <div>
+          <label for="fat" class="block text-sm font-medium text-gray-700">Fat (g)</label>
+          <input id="fat" type="number" formControlName="fat" class="mt-1 block w-full p-2 border rounded-md" required>
+          <div *ngIf="recipeForm.get('fat')?.invalid && recipeForm.get('fat')?.touched" class="text-red-600 text-sm">
+            Fat must be a number.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Allergens</label>
+      <div class="flex flex-wrap gap-4">
+        <label *ngFor="let allergen of allergensList" class="inline-flex items-center">
+          <input type="checkbox" [value]="allergen" (change)="toggleAllergen($event)" class="mr-2">
+          {{ allergen }}
+        </label>
+      </div>
+    </div>
+    <div class="flex space-x-4">
+      <button type="submit" [disabled]="recipeForm.invalid || loading" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-blue-400">
+        {{ loading ? 'Saving...' : (isEditMode ? 'Update Recipe' : 'Add Recipe') }}
+      </button>
+      <a routerLink="/recipes" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">Cancel</a>
+    </div>
+  </form>
+</div>
