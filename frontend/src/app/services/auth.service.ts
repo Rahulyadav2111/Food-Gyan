@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';
+  private apiUrl = 'https://food-gyan-backend.onrender.com/api/auth';
   private loggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
 
   constructor(private http: HttpClient, private router: Router) {}
