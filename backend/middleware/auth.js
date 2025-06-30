@@ -5,8 +5,6 @@ const JWT_SECRET = process.env.JWT_TOKEN;
 
 module.exports = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
-  console.log('🔐 Incoming Token:', token);
-  console.log('🔑 JWT_SECRET:', JWT_SECRET);
 
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });

@@ -7,7 +7,15 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors({ origin: 'https://food-gyan.vercel.app' }));
+const port = process.env.PORT;
+const allowedOrigins = [
+  'https://food-gyan.vercel.app',
+  'http://localhost:4200'
+];
+
+app.use(cors({
+  origin: allowedOrigins
+}));
 app.use(express.json());
 
 
@@ -21,7 +29,6 @@ app.use('/api/auth/login', loginLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipeRoutes);
 
-const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

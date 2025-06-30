@@ -15,7 +15,6 @@ router.post('/register', async (req, res) => {
   }
 
   if (!driver || typeof driver.session !== 'function') {
-    console.error('Neo4j driver not initialized');
     return res.status(500).json({ message: 'Database driver not initialized' });
   }
 
@@ -50,7 +49,6 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!driver || typeof driver.session !== 'function') {
-    console.error('Neo4j driver not initialized');
     return res.status(500).json({ message: 'Database driver not initialized' });
   }
 
@@ -75,7 +73,6 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
-    console.error('Login error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   } finally {
     await session.close();
